@@ -6,7 +6,6 @@ VAR
     i ,j : INTEGER; // arrays counters
     value : INTEGER; // value used to input set 1 and set 2 multipls values 
     sum : INTEGER :=0;// initialisation of the sum
-
 BEGIN
 /******Input set 1 and set 2 ********/
     Write("Set 1 length :");// set 1 length
