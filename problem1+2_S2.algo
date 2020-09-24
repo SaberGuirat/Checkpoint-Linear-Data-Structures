@@ -1,0 +1,62 @@
+ALGORITHM problem1_Problem2_solutions_with_hashtable 
+VAR
+    set1 : ARRAY_OF INTEGER[100];
+    set2 : ARRAY_OF INTEGER[100];
+    htab : HASH_TABLE<INTEGER,INTEGER>;
+    len1 ,len2 : INTEGER; // arrays length
+    i ,j : INTEGER; // arrays counters 
+    distinct_sum : INTEGER :=0;// initialisation of the distinct elements sum
+    overlapping_sum  : INTEGER :=0 // initialisation of the overlapping elements
+    count : INTEGER ;// values in the htab table
+BEGIN
+/******Input set 1 and set 2 ********/
+    Write("Set 1 length :");// set 1 length
+    Read(len1);
+    Write("Set 2 length :");// set 2 length
+    Read(len2);
+    FOR i FROM 0 TO len1-1 DO  // Input set1 
+        Write("set1[",i,"]= ");
+        Read(set1[i]);
+    END_FOR
+    FOR i FROM 0 TO len2-1 DO // input set 2 
+        Write("set2[",i,"]= ");
+        Read(set2[i]);
+    END_FOR
+/*******finding out distincs elements and overlapping elements in the same time****/
+    FOR i FROM 0 TO len1-1 DO  // comparing elements in set1 with set2
+        count :=1;
+        htab.insert(set1[i],count);
+        FOR j FROM 0 TO len2-1 DO
+            IF (htab.lookup(set2[j])==true) THEN 
+                htab.insert(set1[i],count+1)
+            END_IF
+        END_FOR
+    END_FOR
+    FOR i FROM 0 TO len2-1 DO // comparing elements in set2 with set1 
+        IF (htab.lookup(set2[i])==true) THEN
+            htab.get(set2[i]) := htab.get(set2[i])+1; // incriment count +1 if key already exist
+        ELSE  
+            count :=1
+            htab.insert(set2[i],count);
+            FOR j FROM 0 TO len1-1 DO
+                IF(htab.lookup(set1[j])==true) THEN 
+                    htab.insert(set2[i],count+1)
+                END_IF
+            END_FOR
+        END_IF
+    END_FOR
+/* value 1 of htable represent distincts elements and values >1 represent
+overlapping elements*/
+    FOR i FROM 0 TO htab.length STEP 1  DO
+        IF (htab.get(htab[i])==1) THEN// value equal 1 so it represent disctinct element
+            distinct_sum := distinct_sum+htab[i];
+            // sum=sum+key
+        ELSE
+            overlapping_sum:=overlapping_sum+(htab[i]*htab.get(htab[i]));
+            // sum=sum+(key*value) value will identify how many times key overlapped 
+        END_IF
+    END_FOR
+/*****Output Result *****/
+    Write("sum of distinct elements = ",distinct_sum);
+    Write("sum of overlapping elements = ",overlapping_sum);
+END
