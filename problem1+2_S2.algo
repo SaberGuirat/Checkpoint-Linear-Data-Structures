@@ -6,7 +6,7 @@ VAR
     len1 ,len2 : INTEGER; // arrays length
     i ,j : INTEGER; // arrays counters 
     distinct_sum : INTEGER :=0;// initialisation of the distinct elements sum
-    overlapping_sum  : INTEGER :=0 // initialisation of the overlapping elements
+    overlapping_sum  : INTEGER :=0 // initialisation of the overlapping elements sum
     count : INTEGER ;// values in the htab table
 BEGIN
 /******Input set 1 and set 2 ********/
